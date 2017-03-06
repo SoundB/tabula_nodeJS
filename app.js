@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var io = require('socket.io')(server);
+var port = process.env.PORT || 3000;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
