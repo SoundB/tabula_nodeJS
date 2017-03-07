@@ -1,9 +1,9 @@
 {
-  "name": "socket.io-chat",
-  "version": "0.0.0",
-  "description": "A simple chat client using socket.io",
+  "name": "tabula",
+  "version": "0.0.1",
+  "description": "tabula client using socket.io",
   "main": "app.js",
-  "author": "Grant Timmerman",
+  "author": "SoundB",
   "private": true,
   "license": "BSD",
   "dependencies": {
