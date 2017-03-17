@@ -18,10 +18,7 @@ app.use(express.static(__dirname + '/public'));
 
 var groups = [
     {'roomId': 1, 'title': '점심먹고 한판', 'status': 'wait', 'owner':'タブラ', 'guests':[]}
-    , {'roomId': 2, 'title': '방 이름 1', 'status': 'playing', 'owner':'タブラ', 'guests':[]}
-    , {'roomId': 3, 'title': '방 이름 2', 'status': 'wait', 'owner':'タブラ', 'guests':[]}
-    , {'roomId': 4, 'title': '방 이름 3', 'status': 'wait', 'owner':'タブラ', 'guests':[]}
-];
+    ];
 
 var usernames = {};
 var numUsers = 0;
@@ -31,7 +28,7 @@ io.on('connection', function (socket) {
   
   socket.on('lounge refresh', function (data) {
 	    
-	    socket.broadcast.emit('lounge refresh', '::::::::::::::');
+	    socket.broadcast.emit('lounge refresh', groups);
 	    
 	  });
 
