@@ -35,6 +35,8 @@ io.on('connection', function (socket) {
 	socket.emit('lounge refresh', {
 		roomList : groups
 	});
+	
+	socket.broadcast.emit('new message', '::::');
 
   });
 
