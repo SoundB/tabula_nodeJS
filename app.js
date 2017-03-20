@@ -69,7 +69,17 @@ io.on('connection', function(socket) {
 		
 		socket.emit('lounge refresh', loungeInfo);
 		
-		socket.broadcast.to('lounge').emit('lounge refresh', loungeInfo);
+		socket.broadcast.emit('lounge refresh', loungeInfo);
+
+	});
+
+	socket.on('join room', function(data) {
+		
+//		socket.join(roomName);
+		
+		socket.emit('join room', data);
+		
+		socket.broadcast.emit('room refresh', ':::: complete' + data.id);
 
 	});
 
