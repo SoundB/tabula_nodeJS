@@ -64,6 +64,7 @@ io.on('connection', function(socket) {
 		});
 		
 		socket.broadcast.emit('lounge refresh', {
+			username : socket.username,
 			roomList : groups
 		});
 
