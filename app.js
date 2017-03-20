@@ -136,6 +136,8 @@ io.of('/waitroom').on('connection', function(socket) {
 	socket.on('waitroom refresh', function(data) {
 		
 		var roomName = 'room-' + data.roomId;
+		
+		socket.join(roomName);
 
 		socket.emit('waitroom refresh', ':::waitroom refresh:::' + roomName);
 
