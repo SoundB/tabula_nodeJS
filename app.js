@@ -54,8 +54,6 @@ var numUsers = 0;
 
 io.on('connection', function(socket) {
 	var addedUser = false;
-
-	socket.join('lounge');
 	
 	socket.on('lounge refresh', function(username) {
 
@@ -69,9 +67,11 @@ io.on('connection', function(socket) {
 			roomList : groups
 		};
 
+		socket.join('lounge');
+
 		socket.emit('lounge refresh', loungeInfo);
 
-		socket.broadcast.emit('lounge refresh', loungeInfo);
+		socket.broadcast.to('lounge').emit('lounge refresh', loungeInfo);
 
 	});
 
