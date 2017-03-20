@@ -26,13 +26,13 @@ var numUsers = 0;
 io.on('connection', function (socket) {
   var addedUser = false;
   
-  socket.on('lounge refresh', function (data) {
-	    
-	    socket.broadcast.emit('lounge refresh', {
-	    	roomList : groups
-	    });
-	    
-	  });
+//  socket.on('lounge refresh', function (data) {
+//	    
+//	    socket.broadcast.emit('lounge refresh', {
+//	    	roomList : groups
+//	    });
+//	    
+//	  });
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
