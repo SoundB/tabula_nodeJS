@@ -52,7 +52,7 @@ var usernames = {};
 var userCnt = 0;
 var numUsers = 0;
 
-io.on('connection', function(socket) {
+io.of('lounge').on('connection', function(socket) {
 	var addedUser = false;
 	
 	socket.on('lounge refresh', function(username) {
@@ -66,8 +66,6 @@ io.on('connection', function(socket) {
 			userCnt : userCnt,
 			roomList : groups
 		};
-
-		socket.join('lounge');
 
 		socket.emit('lounge refresh', loungeInfo);
 
