@@ -139,7 +139,7 @@ io.of('/waitroom').on('connection', function(socket) {
 
 		socket.emit('waitroom refresh', ':::waitroom refresh:::');
 
-		socket.broadcast.to('lounge').emit('waitroom refresh', loungeInfo);
+		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
 
 	});
 
