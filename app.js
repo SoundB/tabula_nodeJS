@@ -57,7 +57,12 @@ io.on('connection', function(socket) {
 	socket.on('lounge refresh', function(username) {
 
 		socket.username = username;
-
+		++numUsers;
+		addedUser = true;
+		socket.emit('login', {
+			numUsers : numUsers
+		});
+		
 		socket.broadcast.emit('lounge refresh', {
 			roomList : groups
 		});
