@@ -60,7 +60,7 @@ io.on('connection', function (socket) {
       numUsers: numUsers
     });
     
-    socket.broadcast.emit('lounge refresh', {
+    socket.emit('lounge refresh', {
     	roomList : groups
     });
   });
