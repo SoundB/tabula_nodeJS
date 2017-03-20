@@ -55,9 +55,9 @@ var numUsers = 0;
 io.on('connection', function(socket) {
 	var addedUser = false;
 
+	socket.join('lounge');
+	
 	socket.on('lounge refresh', function(username) {
-		
-//		socket.join(roomName);
 
 		socket.username = username;
 		usernames[username] = username;
