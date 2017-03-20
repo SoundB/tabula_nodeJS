@@ -28,7 +28,7 @@ io.on('connection', function (socket) {
   
   socket.on('lounge refresh', function (data) {
 	    
-	socket.broadcast.emit('lounge refresh', {
+	socket.emit('lounge refresh', {
 		roomList : groups
 	});
 
