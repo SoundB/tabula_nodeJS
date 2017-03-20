@@ -30,7 +30,7 @@ io.on('connection', function (socket) {
 	    
 	    socket.broadcast.emit('lounge refresh', {
 	    	roomList : groups
-	    	});
+	    });
 	    
 	  });
 
@@ -58,6 +58,10 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('user joined', {
       username: socket.username,
       numUsers: numUsers
+    });
+    
+    socket.broadcast.emit('lounge refresh', {
+    	roomList : groups
     });
   });
 
