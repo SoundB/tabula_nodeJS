@@ -71,7 +71,7 @@ io.on('connection', function(socket) {
 		
 		socket.emit('lounge refresh', loungeInfo);
 		
-		socket.broadcastt.to('lounge').emit('lounge refresh', loungeInfo);
+		socket.broadcast.to('lounge').emit('lounge refresh', loungeInfo);
 
 	});
 
