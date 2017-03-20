@@ -49,6 +49,7 @@ var groups = [ {
 } ];
 
 var usernames = {};
+var userCnt = 0;
 var numUsers = 0;
 
 io.on('connection', function(socket) {
@@ -57,16 +58,20 @@ io.on('connection', function(socket) {
 	socket.on('lounge refresh', function(username) {
 
 		socket.username = username;
-		++numUsers;
+		usernames[username] = username;
+		++userCnt;
 		addedUser = true;
-		socket.emit('login', {
-			numUsers : numUsers
-		});
+
+		socket.join('lounge');
 		
-		socket.broadcast.emit('lounge refresh', {
-			username : socket.username,
-			roomList : groups
-		});
+		var loungeInfo = {
+			userCnt		: userCnt,			
+			roomList	: groups
+		};
+		
+		socket.emit('lounge refresh', loungeInfo);
+		
+		socket.broadcastt.to('lounge').emit('lounge refresh', loungeInfo);
 
 	});
 
@@ -116,7 +121,7 @@ io.on('connection', function(socket) {
 		// remove the username from global usernames list
 		if (addedUser) {
 			delete usernames[socket.username];
-			--numUsers;
+			--userCnt;
 
 			// echo globally that this client has left
 			socket.broadcast.emit('user left', {
