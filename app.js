@@ -56,6 +56,8 @@ io.on('connection', function(socket) {
 	var addedUser = false;
 	
 	socket.on('lounge refresh', function(username) {
+		
+		socket.join('lounge');
 
 		socket.username = username;
 		usernames[username] = username;
@@ -69,7 +71,7 @@ io.on('connection', function(socket) {
 
 		socket.emit('lounge refresh', loungeInfo);
 
-		socket.broadcast.emit('lounge refresh', loungeInfo);
+		socket.broadcast.to('lounge').emit('lounge refresh', loungeInfo);
 
 	});
 
