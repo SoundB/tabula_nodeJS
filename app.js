@@ -61,25 +61,49 @@ io.on('connection', function(socket) {
 		usernames[username] = username;
 		++userCnt;
 		addedUser = true;
-		
+
 		var loungeInfo = {
-			userCnt		: userCnt,			
-			roomList	: groups
+			userCnt : userCnt,
+			roomList : groups
 		};
-		
+
 		socket.emit('lounge refresh', loungeInfo);
-		
-		socket.broadcast.emit('lounge refresh', loungeInfo);
+
+		socket.broadcast.to('lounge').emit('lounge refresh', loungeInfo);
 
 	});
 
 	socket.on('join room', function(data) {
-		
-//		socket.join(roomName);
-		
+
+		var roomName = 'room-' + data.roomId;
+
+		socket.join(roomName);
+
 		socket.emit('join room', data);
-		
-		socket.broadcast.emit('room refresh', ':::: complete' + data.id);
+
+		socket.broadcast.to(roomName).emit('room refresh',
+				':::: complete' + data.id);
+
+	});
+
+	socket.on('add room', function(data) {
+
+		groups.put({
+			'roomId' : 6,
+			'title' : '테스트 방 5',
+			'status' : 'wait',
+			'owner' : '방장4',
+			'guests' : []
+		});
+
+		var loungeInfo = {
+			userCnt : userCnt,
+			roomList : groups
+		};
+
+		socket.emit('lounge refresh', loungeInfo);
+
+		socket.broadcast.to('lounge').emit('lounge refresh', loungeInfo);
 
 	});
 
