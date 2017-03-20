@@ -61,8 +61,6 @@ io.on('connection', function(socket) {
 		usernames[username] = username;
 		++userCnt;
 		addedUser = true;
-
-		socket.join('lounge');
 		
 		var loungeInfo = {
 			userCnt		: userCnt,			
