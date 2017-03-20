@@ -17,7 +17,11 @@ app.use(express.static(__dirname + '/public'));
 // Chatroom
 
 var groups = [
-    {'roomId': 1, 'title': '점심먹고 한판', 'status': 'wait', 'owner':'タブラ', 'guests':[]}
+    {'roomId': 1, 'title': '점심먹고 한판', 'status': 'wait', 'owner':'タブラ', 'guests':[]},
+    {'roomId': 2, 'title': '테스트 방 1', 'status': 'wait', 'owner':'방장1', 'guests':[]},
+    {'roomId': 3, 'title': '테스트 방 2', 'status': 'wait', 'owner':'방장2', 'guests':[]},
+    {'roomId': 4, 'title': '테스트 방 3', 'status': 'wait', 'owner':'방장3', 'guests':[]},
+    {'roomId': 5, 'title': '테스트 방 4', 'status': 'wait', 'owner':'방장4', 'guests':[]}
     ];
 
 var usernames = {};
