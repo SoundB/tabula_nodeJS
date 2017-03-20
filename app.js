@@ -79,7 +79,7 @@ io.on('connection', function(socket) {
 
 //		socket.join(roomName);
 
-		socket.emit('join room', data);
+		socket.in('lounge').emit('join room', data);
 
 		socket.in(roomName).emit('room refresh', ':::: complete' + data.id);
 
