@@ -77,7 +77,7 @@ io.on('connection', function(socket) {
 
 		var roomName = 'room-' + data.roomId;
 
-		socket.join(roomName);
+//		socket.join(roomName);
 
 		socket.emit('join room', data);
 
