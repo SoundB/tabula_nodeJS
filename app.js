@@ -81,16 +81,15 @@ io.on('connection', function(socket) {
 
 		socket.emit('join room', data);
 
-		socket.broadcast.to(roomName).emit('room refresh',
-				':::: complete' + data.id);
+		socket.broadcast.to(roomName).emit('room refresh', ':::: complete' + data.id);
 
 	});
 
 	socket.on('add room', function(data) {
 
-		groups.put({
+		groups.push({
 			'roomId' : 6,
-			'title' : '테스트 방 5',
+			'title' : data,
 			'status' : 'wait',
 			'owner' : '방장4',
 			'guests' : []
