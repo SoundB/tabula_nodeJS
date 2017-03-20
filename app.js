@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 
 // Chatroom
 
-var groups = [ {
+var groups = new Array( {
 	'roomId' : 1,
 	'title' : '점심먹고 한판',
 	'status' : 'wait',
@@ -46,7 +46,7 @@ var groups = [ {
 	'status' : 'wait',
 	'owner' : '방장4',
 	'guests' : []
-} ];
+} );
 
 var usernames = {};
 var userCnt = 0;
