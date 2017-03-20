@@ -84,7 +84,7 @@ io.of('/lounge').on('connection', function(socket) {
 
 		socket.emit('join room', data);
 		
-		io.of('/waitroom').in(roomName).emit('room refresh', ':::: complete' + data.id);
+//		io.of('/waitroom').in(roomName).emit('waitroom refresh', ':::: complete' + data.id);
 
 	});
 
