@@ -52,7 +52,7 @@ var usernames = {};
 var userCnt = 0;
 var numUsers = 0;
 
-io.of('/lounge').on('connection', function(socket) {
+io.on('connection', function(socket) {
 	
 	var addedUser = false;
 	
@@ -141,24 +141,4 @@ io.of('/lounge').on('connection', function(socket) {
 			});
 		}
 	});
-});
-
-io.of('/waitroom').on('connection', function(socket) {
-	
-	socket.on('waitroom refresh', function(data) {
-		
-		var roomName = 'room-' + data.roomId;
-		
-		socket.join(roomName);
-
-		socket.emit('waitroom refresh', ':::waitroom refresh:::' + roomName);
-
-		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
-
-	});
-
-	socket.on('disconnect', function() {
-		
-	});
-	
 });
