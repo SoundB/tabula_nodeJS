@@ -115,7 +115,7 @@ io.of('/lounge').on('connection', function(socket) {
 		
 		socket.join(roomName);
 
-		socket.emit('waitroom refresh', ':::waitroom refresh:::' + roomName);
+		socket.emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
 
 		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
 
