@@ -138,11 +138,11 @@ io.of('/waitroom').on('connection', function(socket) {
 		
 		var roomName = 'room-' + data.roomId;
 		
-		// socket.join(roomName);
+		socket.join(roomName);
 
 		socket.emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
 
-		socket.broadcast.emit('waitroom refresh', loungeInfo);
+		socket.broadcast.to(roomName).emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
 
 	});
 
