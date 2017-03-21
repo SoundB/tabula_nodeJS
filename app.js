@@ -52,7 +52,7 @@ var usernames = {};
 var userCnt = 0;
 var numUsers = 0;
 
-io.on('connection', function(socket) {
+io.of('/lounge').on('connection', function(socket) {
 	
 	var addedUser = false;
 	
@@ -110,31 +110,6 @@ io.on('connection', function(socket) {
 
 	});
 
-	socket.on('waitroom leave room', function(data) {
-
-		var roomName = 'room-' + data.roomId;
-
-		socket.broadcast.to(roomName).emit('waitroom leave room', loungeInfo);
-
-		socket.leave(roomName);
-		socket.join('lounge');
-
-		socket.emit('waitroom leave room', data);
-
-	});
-	
-	socket.on('waitroom refresh', function(data) {
-		
-		var roomName = 'room-' + data.roomId;
-		
-		socket.join(roomName);
-
-		socket.emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
-
-		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
-
-	});
-
 	socket.on('lounge message', function(data) {
 
 		socket.broadcast.to('lounge').emit('lounge message', {
@@ -155,4 +130,37 @@ io.on('connection', function(socket) {
 			});
 		}
 	});
+});
+
+io.of('/waitroom').on('connection', function(socket) {
+	
+	socket.on('waitroom refresh', function(data) {
+		
+		var roomName = 'room-' + data.roomId;
+		
+		socket.join(roomName);
+
+		socket.emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
+
+		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
+
+	});
+
+	socket.on('waitroom leave room', function(data) {
+
+		var roomName = 'room-' + data.roomId;
+
+		socket.broadcast.to(roomName).emit('waitroom leave room', loungeInfo);
+
+		socket.leave(roomName);
+
+		socket.emit('waitroom leave room', data);
+
+		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
+	});
+
+	socket.on('disconnect', function() {
+		socket.broadcast.emit('waitroom refresh', '-disconnect-');
+	});
+
 });
