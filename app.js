@@ -101,8 +101,8 @@ io.on('connection', function(socket) {
 
 		var roomName = 'room-' + data.roomId;
 
-		socket.leave('lounge');
-		socket.join(roomName);
+		// socket.leave('lounge');
+		// socket.join(roomName);
 
 		socket.emit('lounge join room', data);
 
@@ -122,11 +122,11 @@ io.on('connection', function(socket) {
 		
 		var roomName = 'room-' + data.roomId;
 		
-		socket.join(roomName);
+		socket.join('roomName');
 
-		socket.emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
+		socket.emit('lounge refresh', ':::waitroom refresh : ');
 
-		socket.broadcast.to(roomName).emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
+		socket.broadcast.to(roomName).emit('lounge refresh', ':::waitroom refresh : ');
 
 	});
 
@@ -142,47 +142,4 @@ io.on('connection', function(socket) {
 			});
 		}
 	});
-});
-
-io.of('/waitroom').on('connection', function(socket) {
-	
-	socket.on('waitroom refresh', function(data) {
-		
-		var roomName = 'room-' + data.roomId;
-		
-		socket.join(roomName);
-
-		socket.emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
-
-		socket.broadcast.to(roomName).emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
-
-	});
-
-	socket.on('waitroom leave room', function(data) {
-
-		var roomName = 'room-' + data.roomId;
-
-		socket.broadcast.to(roomName).emit('waitroom leave room', loungeInfo);
-
-		socket.leave(roomName);
-
-		socket.emit('waitroom leave room', data);
-
-		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
-	});
-
-	socket.on('disconnect', function() {
-		socket.broadcast.emit('waitroom refresh', '-disconnect-');
-
-		if (addedUser) {
-			delete usernames[socket.username];
-			--userCnt;
-
-			socket.broadcast.emit('user left', {
-				username : socket.username,
-				numUsers : numUsers
-			});
-		}		
-	});
-
 });
