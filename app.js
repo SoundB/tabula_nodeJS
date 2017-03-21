@@ -101,7 +101,7 @@ io.on('connection', function(socket) {
 
 		var roomName = 'room-' + data.roomId;
 
-		// socket.leave('lounge');
+		socket.leave('lounge');
 		socket.join(roomName);
 
 		socket.emit('lounge join room', data);
@@ -116,7 +116,7 @@ io.on('connection', function(socket) {
 
 		socket.broadcast.to(roomName).emit('waitroom leave room', loungeInfo);
 
-		// socket.leave(roomName);
+		socket.leave(roomName);
 		socket.join('lounge');
 
 		socket.emit('waitroom leave room', data);
