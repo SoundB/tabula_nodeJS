@@ -102,12 +102,24 @@ io.on('connection', function(socket) {
 		var roomName = 'room-' + data.roomId;
 
 		socket.leave('lounge');
+		socket.join(roomName);
 
 		socket.emit('lounge join room', data);
 
 		socket.broadcast.to(roomName).emit('lounge join room', loungeInfo);
-		
-//		io.of('/waitroom').in(roomName).emit('waitroom refresh', ':::: complete' + data.id);
+
+	});
+
+	socket.on('waitroom leave room', function(data) {
+
+		var roomName = 'room-' + data.roomId;
+
+		socket.broadcast.to(roomName).emit('waitroom leave room', loungeInfo);
+
+		socket.leave(roomName);
+		socket.join('lounge');
+
+		socket.emit('waitroom leave room', data);
 
 	});
 	
