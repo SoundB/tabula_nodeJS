@@ -52,7 +52,7 @@ var usernames = {};
 var userCnt = 0;
 var numUsers = 0;
 
-io.of('/lounge').on('connection', function(socket) {
+io.on('connection', function(socket) {
 	
 	var addedUser = false;
 	
@@ -117,6 +117,18 @@ io.of('/lounge').on('connection', function(socket) {
 			message : data
 		});
 	});
+	
+	socket.on('waitroom refresh', function(data) {
+		
+		var roomName = 'room-' + data.roomId;
+		
+		socket.join(roomName);
+
+		socket.emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
+
+		socket.broadcast.to(roomName).emit('waitroom refresh', ':::waitroom refresh : ' + roomName);
+
+	});
 
 	socket.on('disconnect', function() {
 		
@@ -161,6 +173,16 @@ io.of('/waitroom').on('connection', function(socket) {
 
 	socket.on('disconnect', function() {
 		socket.broadcast.emit('waitroom refresh', '-disconnect-');
+
+		if (addedUser) {
+			delete usernames[socket.username];
+			--userCnt;
+
+			socket.broadcast.emit('user left', {
+				username : socket.username,
+				numUsers : numUsers
+			});
+		}		
 	});
 
 });
