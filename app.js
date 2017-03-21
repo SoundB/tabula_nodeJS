@@ -76,18 +76,6 @@ io.of('/lounge').on('connection', function(socket) {
 
 	});
 
-	socket.on('join room', function(data) {
-
-		var roomName = 'room-' + data.roomId;
-
-		socket.leave('lounge');
-
-		socket.emit('join room', data);
-		
-//		io.of('/waitroom').in(roomName).emit('waitroom refresh', ':::: complete' + data.id);
-
-	});
-
 	socket.on('add room', function(data) {
 
 		groups.push({
@@ -106,6 +94,30 @@ io.of('/lounge').on('connection', function(socket) {
 		socket.emit('lounge refresh', loungeInfo);
 
 		socket.broadcast.to('lounge').emit('lounge refresh', loungeInfo);
+
+	});
+
+	socket.on('join room', function(data) {
+
+		var roomName = 'room-' + data.roomId;
+
+		socket.leave('lounge');
+
+		socket.emit('join room', data);
+		
+//		io.of('/waitroom').in(roomName).emit('waitroom refresh', ':::: complete' + data.id);
+
+	});
+	
+	socket.on('waitroom refresh', function(data) {
+		
+		var roomName = 'room-' + data.roomId;
+		
+		socket.join(roomName);
+
+		socket.emit('waitroom refresh', ':::waitroom refresh:::' + roomName);
+
+		socket.broadcast.to(roomName).emit('waitroom refresh', loungeInfo);
 
 	});
 
