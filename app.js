@@ -97,13 +97,15 @@ io.on('connection', function(socket) {
 
 	});
 
-	socket.on('join room', function(data) {
+	socket.on('lounge join room', function(data) {
 
 		var roomName = 'room-' + data.roomId;
 
 		socket.leave('lounge');
 
-		socket.emit('join room', data);
+		socket.emit('lounge join room', data);
+
+		socket.broadcast.to(roomName).emit('lounge join room', loungeInfo);
 		
 //		io.of('/waitroom').in(roomName).emit('waitroom refresh', ':::: complete' + data.id);
 
@@ -121,9 +123,9 @@ io.on('connection', function(socket) {
 
 	});
 
-	socket.on('new message', function(data) {
+	socket.on('lounge message', function(data) {
 
-		socket.broadcast.to('lounge').emit('new message', {
+		socket.broadcast.to('lounge').emit('lounge message', {
 			username : socket.username,
 			message : data
 		});
