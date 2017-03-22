@@ -124,9 +124,9 @@ io.on('connection', function(socket) {
 		
 		socket.join('roomName');
 
-		socket.emit('waitroom refresh', ':::waitroom refresh : ');
+		socket.emit('waitroom refresh', '::: self response - > ');
 
-		socket.broadcast.to(roomName).emit('lounge refresh', ':::waitroom refresh : ');
+		socket.broadcast.to(roomName).emit('waitroom refresh', '::: broadcast.to(roomName) response -> ');
 
 	});
 
