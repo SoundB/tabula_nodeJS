@@ -101,12 +101,12 @@ io.on('connection', function(socket) {
 
 		var roomName = 'room-' + data.roomId;
 
-		// socket.leave('lounge');
-		// socket.join(roomName);
+		socket.leave('lounge');
+		socket.join(roomName);
 
 		socket.emit('lounge join room', data);
 
-		// socket.broadcast.to(roomName).emit('lounge join room', loungeInfo);
+		socket.broadcast.to(roomName).emit('waitroom refresh', 'join : ' + roomName);
 
 	});
 
@@ -122,7 +122,7 @@ io.on('connection', function(socket) {
 		
 		var roomName = 'room-' + data.roomId;
 		
-		socket.join(roomName);
+		// socket.join(roomName);
 
 		socket.emit('waitroom refresh', '::: self response - > ');
 
