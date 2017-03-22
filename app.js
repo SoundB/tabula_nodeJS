@@ -122,11 +122,11 @@ io.on('connection', function(socket) {
 		
 		var roomName = 'room-' + data.roomId;
 		
-		socket.join('roomName');
+		socket.join(roomName);
 
 		socket.emit('waitroom refresh', '::: self response - > ');
 
-		socket.broadcast.to('roomName').emit('waitroom refresh', '::: broadcast.to(roomName) response -> ');
+		socket.broadcast.to(roomName).emit('waitroom refresh', '::: broadcast.to(roomName) response -> ');
 
 	});
 
