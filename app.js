@@ -104,9 +104,9 @@ io.on('connection', function(socket) {
 		socket.leave('lounge');
 		socket.join(roomName);
 
-		socket.emit('lounge join room', data);
+		socket.emit('lounge join room', 'self response - > join : ' + roomName);
 
-		socket.broadcast.to(roomName).emit('waitroom refresh', 'join : ' + roomName);
+		socket.broadcast.to(roomName).emit('waitroom refresh', 'broadcast.to(roomName) response - > join : ' + roomName);
 
 	});
 
